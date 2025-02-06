@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de San Valentín</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+            overflow: hidden;
+        }
+        .envelope {
+            width: 250px;
+            height: 150px;
+            background-color: #ff0000;
+            position: relative;
+            margin: 100px auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: transform 0.5s ease-in-out;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .envelope:hover {
+            transform: scale(1.1);
+        }
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: -75px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background-color: #ff3333;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+        .card {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffb6c1;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .yes {
+            background-color: red;
+            color: white;
+        }
+        .no {
+            background-color: gray;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .flowers {
+            margin-top: 20px;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: floatUp 2s linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-100px); opacity: 0; }
+        }
+        .wink {
+            display: inline-block;
+            animation: winkAnimation 1s infinite;
+        }
+        @keyframes winkAnimation {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" onclick="openCard()">Toca para abrir</div>
+    <div class="card" id="card">
+        <h2>❤️❤️❤️ ¿QUIERES SER MI SAN VALENTÍN, MI GIA BONITA? ❤️❤️❤️</h2>
+        <div class="buttons">
+            <button class="yes" onclick="showLove()">Sí</button>
+            <button class="no" onclick="showNo()">No</button>
+        </div>
+        <div id="response" class="hidden">
+            <h3>Gracias por su confirmación, la buscaré el 14 de febrero para un día muy bonito con usted, la amoooo mucho.</h3>
+            <div class="flowers">🌺🌹🌺🌹🌺🌹🌺🌹🌺</div>
+        </div>
+        <div id="no-response" class="hidden">
+            <h3>Igual es un SI!!!, será traída de grado o fuerza ese día <span class="wink">😉</span><span class="wink">😉</span><span class="wink">😉</span></h3>
+        </div>
+    </div>
+
+    <script>
+        function openCard() {
+            document.getElementById('card').style.display = 'block';
+            document.querySelector('.envelope').style.display = 'none';
+            generateHearts();
+        }
+        function showLove() {
+            document.getElementById('response').classList.remove('hidden');
+            document.getElementById('no-response').classList.add('hidden');
+        }
+        function showNo() {
+            document.getElementById('no-response').classList.remove('hidden');
+        }
+        function generateHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+    </script>
+</body>
+</html>
